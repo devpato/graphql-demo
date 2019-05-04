@@ -1,10 +1,25 @@
-import express from 'express';
-const SERVER = express();
+const { ApolloServer, gql } = require('apollo-server');
 
-// SERVER.get('/graphql', (req, res) => {
-// 	res.send('<html><head><body><h1>Hellow World</h1></body></head></html>');
-// });
+// The GraphQL schema
+const typeDefs = gql`
+  type Query {
+    "A simple type for getting started!"
+    hello: String
+  }
+`;
 
-SERVER.listen(4000, () => {
-	console.log('Listening to port 4000');
+// A map of functions which return data for the schema.
+const resolvers = {
+	Query: {
+		hello: () => 'world'
+	}
+};
+
+const SERVER = new ApolloServer({
+	typeDefs,
+	resolvers
+});
+
+SERVER.listen().then(({ url }) => {
+	console.log(`🚀 Server ready at ${url}`);
 });
