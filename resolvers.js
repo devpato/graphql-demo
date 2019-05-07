@@ -5,10 +5,17 @@ import authorModel from './models/author';
 const resolvers = {
 	Query: {
 		authors: () => {
-			return authors;
+			return authorModel.find({});
 		},
-		author: (root, { age }) => {
-			return authors.find((a) => a.age === age);
+		authorByAge: (root, { age }) => {
+			return authorModel.where({
+				age: {
+					$gte: 10
+				}
+			});
+		},
+		authorByID: (root, { id }) => {
+			return authorModel.findOne({ id: id });
 		}
 	},
 
