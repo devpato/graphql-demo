@@ -19,6 +19,9 @@ const resolvers = {
 		},
 		deleteAuthor: (root, { id }) => {
 			return authorModel.deleteOne({ id: id });
+		},
+		updateAuthor: (root, { id, name }) => {
+			return authorModel.findOneAndUpdate({ id: id }, { name: name });
 		}
 	}
 };
